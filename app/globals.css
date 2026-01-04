@@ -1,26 +1,26 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* daisyUI v5 plugin configuration */
+@plugin "daisyui" {
+  /* এখানে আপনি যে থিমগুলো আপনার নেভবারে ব্যবহার করেছেন সেগুলো দিন */
+  themes: light, night, luxury, cupcake, dracula;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
+@layer base {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --p: 57 81% 60%; /* শ্যাডো ইফেক্টের জন্য কাস্টম ভেরিয়েবল */
+    --background: #ffffff;
+    --foreground: #000000;
+  }
+
+  /* ডার্ক মোড সাপোর্ট (Optional, daisyUI অটোমেটিক থিম হ্যান্ডেল করে) */
+  [data-theme='night'] {
+    --background: #0f172a;
+    --foreground: #ffffff;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* স্মুথ স্ক্রলিং এর জন্য */
+html {
+  scroll-behavior: smooth;
 }
