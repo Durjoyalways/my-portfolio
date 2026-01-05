@@ -2,25 +2,53 @@
 
 /* daisyUI v5 plugin configuration */
 @plugin "daisyui" {
-  /* এখানে আপনি যে থিমগুলো আপনার নেভবারে ব্যবহার করেছেন সেগুলো দিন */
   themes: light, night, luxury, cupcake, dracula;
+}
+
+/* Global Keyframes */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Custom Animation Class */
+.animate-fade-in-up {
+  opacity: 0;
+  animation: fadeInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
 
 @layer base {
   :root {
-    --p: 57 81% 60%; /* শ্যাডো ইফেক্টের জন্য কাস্টম ভেরিয়েবল */
-    --background: #ffffff;
-    --foreground: #000000;
+    --p: 212 100% 48%; /* Primary color hsl value for custom calculations */
   }
 
-  /* ডার্ক মোড সাপোর্ট (Optional, daisyUI অটোমেটিক থিম হ্যান্ডেল করে) */
-  [data-theme='night'] {
-    --background: #0f172a;
-    --foreground: #ffffff;
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-base-100 text-base-content antialiased;
+  }
+
+  /* Custom Selection Color */
+  ::selection {
+    @apply bg-primary text-primary-content;
   }
 }
 
-/* স্মুথ স্ক্রলিং এর জন্য */
-html {
-  scroll-behavior: smooth;
+/* Scrollbar Customization (Optional - modern look) */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  @apply bg-base-200;
+}
+::-webkit-scrollbar-thumb {
+  @apply bg-primary/30 rounded-full hover:bg-primary/50 transition-colors;
 }
