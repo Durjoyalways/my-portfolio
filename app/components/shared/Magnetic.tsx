@@ -6,9 +6,14 @@ export default function Magnetic({ children }: { children: React.ReactNode }) {
     const ref = useRef<HTMLDivElement>(null);
     const [position, setPosition] = useState({ x: 0, y: 0 });
 
+    // টাইপস্ক্রিপ্ট এরর এড়াতে motion.div কে কাস্ট করা হলো
+    const MotionDiv = motion.div as any;
+
     const handleMouse = (e: React.MouseEvent) => {
+        if (!ref.current) return;
+        
         const { clientX, clientY } = e;
-        const { height, width, left, top } = ref.current!.getBoundingClientRect();
+        const { height, width, left, top } = ref.current.getBoundingClientRect();
         const middleX = clientX - (left + width / 2);
         const middleY = clientY - (top + height / 2);
         setPosition({ x: middleX * 0.3, y: middleY * 0.3 });
@@ -21,7 +26,7 @@ export default function Magnetic({ children }: { children: React.ReactNode }) {
     const { x, y } = position;
 
     return (
-        <motion.div
+        <MotionDiv
             style={{ position: "relative" }}
             ref={ref}
             onMouseMove={handleMouse}
@@ -30,6 +35,6 @@ export default function Magnetic({ children }: { children: React.ReactNode }) {
             transition={{ type: "spring", stiffness: 150, damping: 15, mass: 0.1 }}
         >
             {children}
-        </motion.div>
+        </MotionDiv>
     )
 }
