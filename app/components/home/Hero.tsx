@@ -66,12 +66,12 @@ const Hero = () => {
               </span>
             </h1>
             
-            <p className="text-lg md:text-xl text-base-content/70 leading-relaxed max-w-xl mx-auto lg:mx-0 font-medium">
-              Hi, I'm <span className="text-base-content font-bold border-b-4 border-primary/50">Durjoy</span>. 
-              আমি আধুনিক এবং হাই-পারফরম্যান্স ওয়েব অ্যাপ্লিকেশন তৈরিতে দক্ষ, যেখানে আমি 
-              <span className="text-base-content font-semibold"> MERN Stack </span> 
-              ব্যবহার করে ইউজার এক্সপেরিয়েন্সকে আরও উন্নত করি।
-            </p>
+          <p className="text-lg md:text-xl text-base-content/70 leading-relaxed max-w-xl mx-auto lg:mx-0 font-medium">
+  Hi, I'm <span className="text-base-content font-bold border-b-4 border-primary/50">Durjoy</span>. 
+  An expert in building scalable, high-performance web architectures. 
+  I leverage the <span className="text-base-content font-semibold"> MERN Stack </span> 
+  to elevate user experiences and build seamless digital solutions.
+</p>
           </div>
 
           <div className="flex flex-wrap justify-center lg:justify-start gap-4">

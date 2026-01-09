@@ -3,7 +3,7 @@ import React, { useRef, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaPaperPlane, FaGithub, FaLinkedin, FaWhatsapp, FaCheckCircle } from 'react-icons/fa';
 
-// --- Type Casting for Framer Motion to prevent Build Errors ---
+// --- Type Casting for Framer Motion ---
 const MotionDiv = motion.div as any;
 const MotionH1 = motion.h1 as any;
 const MotionForm = motion.form as any;
@@ -88,7 +88,7 @@ const ContactPage = () => {
               <span className="text-primary italic">Talk.</span>
             </MotionH1>
             <p className="text-xl text-base-content/60 max-w-md leading-relaxed">
-              আমি ফ্রিল্যান্স প্রজেক্ট এবং ফুল-টাইম কাজের জন্য প্রস্তুত। চলুন একসাথে দারুণ কিছু তৈরি করি।
+              I'm currently available for freelance projects and full-time opportunities. Let's build something exceptional together.
             </p>
 
             <div className="flex gap-6 pt-4">
@@ -122,7 +122,7 @@ const ContactPage = () => {
                   >
                     <FaCheckCircle className="text-primary text-7xl mx-auto animate-bounce" />
                     <h2 className="text-3xl font-bold">Message Sent!</h2>
-                    <p className="opacity-60 font-medium">আপনার মেসেজটি আমি পেয়েছি। খুব শীঘ্রই যোগাযোগ করব।</p>
+                    <p className="opacity-60 font-medium">I've received your message. I'll get back to you as soon as possible.</p>
                   </MotionDiv>
                 ) : (
                   <MotionForm 
@@ -135,21 +135,21 @@ const ContactPage = () => {
                       <label className="label">
                         <span className="label-text font-bold uppercase tracking-widest text-xs opacity-50">Full Name</span>
                       </label>
-                      <input name="name" required type="text" placeholder="আপনার নাম" className="input input-ghost bg-base-100/50 border-base-content/10 focus:border-primary focus:bg-base-100 rounded-2xl h-16 text-lg transition-all outline-none" />
+                      <input name="name" required type="text" placeholder="Enter your name" className="input input-ghost bg-base-100/50 border-base-content/10 focus:border-primary focus:bg-base-100 rounded-2xl h-16 text-lg transition-all outline-none" />
                     </div>
 
                     <div className="form-control">
                       <label className="label">
-                        <span className="label-text font-bold uppercase tracking-widest text-xs opacity-50">Email</span>
+                        <span className="label-text font-bold uppercase tracking-widest text-xs opacity-50">Email Address</span>
                       </label>
                       <input name="email" required type="email" placeholder="email@example.com" className="input input-ghost bg-base-100/50 border-base-content/10 focus:border-primary focus:bg-base-100 rounded-2xl h-16 text-lg transition-all outline-none" />
                     </div>
 
                     <div className="form-control">
                       <label className="label">
-                        <span className="label-text font-bold uppercase tracking-widest text-xs opacity-50">Message</span>
+                        <span className="label-text font-bold uppercase tracking-widest text-xs opacity-50">Project Inquiry</span>
                       </label>
-                      <textarea name="message" required rows={4} placeholder="আপনি কি তৈরি করতে চান?" className="textarea textarea-ghost bg-base-100/50 border-base-content/10 focus:border-primary focus:bg-base-100 rounded-3xl text-lg transition-all p-6 outline-none" />
+                      <textarea name="message" required rows={4} placeholder="Tell me about your project..." className="textarea textarea-ghost bg-base-100/50 border-base-content/10 focus:border-primary focus:bg-base-100 rounded-3xl text-lg transition-all p-6 outline-none" />
                     </div>
 
                     <div className="pt-6">
