@@ -5,7 +5,9 @@ import { motion } from 'framer-motion';
 import { FaArrowLeft, FaGithub, FaExternalLinkAlt, FaCheckCircle, FaLaptopCode, FaServer, FaLayerGroup } from 'react-icons/fa';
 import Link from 'next/link';
 
-// আপনি চাইলে এই ডাটাগুলো একটি আলাদা constants ফোল্ডারেও রাখতে পারেন
+// টাইপস্ক্রিপ্ট এরর এড়াতে মোশন এলিমেন্ট কাস্টিং
+const MotionDiv = motion.div as any;
+
 const projectsData = [
   {
     id: "proj-01",
@@ -28,7 +30,7 @@ const projectsData = [
     longDescription: "I built the engine that powers an AI platform's order management. My work involved creating secure REST APIs, implementing Socket.io for real-time notifications, and designing an efficient MongoDB schema to handle large volumes of order data.",
     features: ["Real-time Order Processing", "Socket.io Integration", "Secure Admin Authentication", "AI API Management"],
     tech: ["Node.js", "Express", "MongoDB", "Socket.io", "OpenAI API"],
- liveLink: "https://dia-medical-shop-wler.vercel.app/admin/all-orders", //
+    liveLink: "https://dia-medical-shop-wler.vercel.app/admin/all-orders", 
     githubLink: "https://github.com/Durjoyalways/Dia-Medical-Shop/tree/main/app/admin/all-orders",
   },
   {
@@ -40,7 +42,7 @@ const projectsData = [
     longDescription: "As a full-stack developer, I handled everything from the PostgreSQL database design to the React-based dashboard. I used Redis for caching analytics data to ensure that the admin receives real-time updates without any lag.",
     features: ["Inventory Tracking", "Data Visualization", "Redis Caching Layer", "Role-based Dashboard"],
     tech: ["React", "Node.js", "PostgreSQL", "Redis", "Tailwind CSS"],
-  liveLink: "https://dia-medical-shop-wler.vercel.app",
+    liveLink: "https://dia-medical-shop-wler.vercel.app",
     githubLink: "https://github.com/Durjoyalways/Dia-Medical-Shop"
   }
 ];
@@ -70,7 +72,7 @@ const ProjectDetails = () => {
       <div className="container mx-auto px-6 max-w-7xl">
         
         {/* Navigation & Header */}
-        <motion.div 
+        <MotionDiv 
           initial={{ opacity: 0, x: -20 }} 
           animate={{ opacity: 1, x: 0 }}
           className="flex flex-col md:flex-row justify-between items-start md:items-center mb-12 gap-6"
@@ -90,14 +92,14 @@ const ProjectDetails = () => {
               Live Demo <FaExternalLinkAlt className="ml-2 text-xs" />
             </Link>
           </div>
-        </motion.div>
+        </MotionDiv>
 
         {/* Main Grid Content */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
           
-          {/* Left Column: Image & Details (8 Cols) */}
+          {/* Left Column */}
           <div className="lg:col-span-8 space-y-12">
-            <motion.div 
+            <MotionDiv 
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               className="space-y-6"
@@ -110,18 +112,17 @@ const ProjectDetails = () => {
                   <span key={i} className={i % 2 !== 0 ? "text-primary not-italic" : ""}>{word} </span>
                 ))}
               </h1>
-            </motion.div>
+            </MotionDiv>
 
             {/* Featured Image */}
-            <motion.div 
+            <MotionDiv 
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               className="relative aspect-video rounded-[3rem] overflow-hidden border-8 border-base-200 shadow-2xl bg-black"
             >
               <img src={project.image} alt={project.title} className="w-full h-full object-cover" />
-            </motion.div>
+            </MotionDiv>
 
-            {/* Overview Section */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-12 pt-8">
               <div className="space-y-4">
                 <h3 className="text-2xl font-bold uppercase flex items-center gap-3 italic">
@@ -146,14 +147,14 @@ const ProjectDetails = () => {
             </div>
           </div>
 
-          {/* Right Column: Info Sidebar (4 Cols) */}
+          {/* Right Column Sidebar */}
           <div className="lg:col-span-4">
             <div className="sticky top-32 space-y-8 bg-base-200/50 p-10 rounded-[3rem] border border-base-content/5 backdrop-blur-md">
               <div>
                 <h4 className="text-[10px] font-bold uppercase tracking-[0.4em] mb-6 opacity-40">Tech Stack</h4>
                 <div className="flex flex-wrap gap-2">
                   {project.tech.map((t, i) => (
-                    <span key={i} className="px-5 py-2 bg-base-100 rounded-xl text-[10px] font-black border border-white/5 uppercase tracking-widest text-primary">
+                    <span key={i} className="px-5 py-2 bg-base-100 rounded-xl text-[10px] font-black border border-base-content/10 uppercase tracking-widest text-primary">
                       {t}
                     </span>
                   ))}

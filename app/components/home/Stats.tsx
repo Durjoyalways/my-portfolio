@@ -1,4 +1,9 @@
-"use client"; // This marks it as a Client Component
+"use client";
+import React from "react";
+import { motion } from "framer-motion";
+
+// টাইপস্ক্রিপ্ট বিল্ড এরর এড়াতে মোশন এলিমেন্ট কাস্টিং
+const MDiv = motion.div as any;
 
 export default function Stats() {
   const stats = [
@@ -16,8 +21,12 @@ export default function Stats() {
       <div className="container mx-auto px-6">
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8">
           {stats.map((s, i) => (
-            <div 
+            <MDiv 
               key={i} 
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: i * 0.1 }}
               className="text-center space-y-4 transition-all duration-700 hover:-translate-y-2"
             >
               <div className="relative inline-block">
@@ -32,7 +41,7 @@ export default function Stats() {
               
               {/* Animated underline */}
               <div className="h-1 w-10 bg-primary/20 mx-auto rounded-full group-hover:w-20 group-hover:bg-primary transition-all duration-500"></div>
-            </div>
+            </MDiv>
           ))}
         </div>
       </div>
