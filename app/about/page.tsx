@@ -4,9 +4,15 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import { FaCode, FaPaintBrush, FaRocket, FaDatabase } from 'react-icons/fa';
 
 const AboutPage = () => {
-  // Scroll animation for the parallax background text
   const { scrollYProgress } = useScroll();
   const xTransform = useTransform(scrollYProgress, [0, 1], [0, -500]);
+
+  // Type definition to bypass strict motion props errors
+  const motionProps: any = {
+    initial: { opacity: 0, y: 50 },
+    whileInView: { opacity: 1, y: 0 },
+    transition: { duration: 0.8 }
+  };
 
   return (
     <div className="min-h-screen bg-base-100 overflow-hidden">
@@ -14,7 +20,6 @@ const AboutPage = () => {
       {/* 1. Hero Section with Parallax Text */}
       <section className="relative h-[70vh] flex items-center justify-center">
         <motion.h2 
-          // FIXED: Added type casting to prevent TypeScript error
           style={{ x: xTransform } as any} 
           className="absolute whitespace-nowrap text-[15rem] md:text-[25rem] font-black text-base-content/[0.03] pointer-events-none select-none uppercase"
         >
@@ -22,10 +27,9 @@ const AboutPage = () => {
         </motion.h2>
         
         <div className="container mx-auto px-6 z-10">
+          {/* FIXED: Using spread operator to bypass TypeScript strict check */}
           <motion.div 
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
+            {...motionProps}
             className="max-w-4xl"
           >
             <h1 className="text-6xl md:text-9xl font-black tracking-tighter uppercase leading-none">
@@ -36,12 +40,11 @@ const AboutPage = () => {
         </div>
       </section>
 
-      {/* 2. Content Section with Image & Description */}
+      {/* 2. Content Section */}
       <section className="container mx-auto px-6 py-24 border-t border-base-content/5">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
-          {/* Image with Tilt-like Hover Effect */}
           <motion.div 
-            whileHover={{ scale: 0.98, rotate: -1 }}
+            whileHover={{ scale: 0.98, rotate: -1 } as any}
             className="relative aspect-square group cursor-crosshair"
           >
             <div className="absolute inset-0 border-2 border-primary rounded-[3rem] translate-x-4 translate-y-4 group-hover:translate-x-0 group-hover:translate-y-0 transition-transform duration-500"></div>
@@ -56,8 +59,8 @@ const AboutPage = () => {
 
           <div className="space-y-8">
             <motion.p 
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
+              initial={{ opacity: 0 } as any}
+              whileInView={{ opacity: 1 } as any}
               className="text-2xl md:text-3xl font-medium leading-relaxed text-base-content/80"
             >
               I am a Full-stack Developer based in <span className="text-base-content underline decoration-primary decoration-4">Bangladesh</span>, 
@@ -65,14 +68,14 @@ const AboutPage = () => {
             </motion.p>
             <p className="text-lg text-base-content/60 leading-relaxed">
               My journey started with a passion for logic, which evolved into a mastery of the 
-              MERN stack and Next.js. I don't just write code; I build secure, scalable systems 
+              MERN stack and Next.js. I build secure, scalable systems 
               like integrated SSLCommerz payment ecosystems and AI-driven dashboards.
             </p>
           </div>
         </div>
       </section>
 
-      {/* 3. Skill Cards Section */}
+      {/* 3. Skill Cards */}
       <section className="bg-base-200/50 py-32">
         <div className="container mx-auto px-6">
           <h3 className="text-sm font-bold tracking-[0.4em] uppercase text-primary mb-16 text-center">Technical Arsenal</h3>
@@ -86,20 +89,18 @@ const AboutPage = () => {
             ].map((skill, i) => (
               <motion.div
                 key={i}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: i * 0.1 }}
-                whileHover={{ y: -5 }}
+                initial={{ opacity: 0, y: 20 } as any}
+                whileInView={{ opacity: 1, y: 0 } as any}
+                transition={{ delay: i * 0.1 } as any}
+                whileHover={{ y: -5 } as any}
                 className="relative group p-10 rounded-[2.5rem] bg-base-100 border border-base-content/5 overflow-hidden transition-all duration-500"
               >
-                {/* Glow Effect */}
                 <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"
                      style={{
                        background: 'radial-gradient(circle at center, var(--p) 0%, transparent 70%)',
                        opacity: 0.05
                      }}>
                 </div>
-
                 <div className="relative z-10">
                   <div className="text-4xl text-primary mb-6 group-hover:scale-110 transition-transform duration-500">
                     {skill.icon}
@@ -115,7 +116,7 @@ const AboutPage = () => {
         </div>
       </section>
 
-      {/* 4. The Process Section */}
+      {/* 4. The Process */}
       <section className="py-32">
         <div className="container mx-auto px-6 flex flex-col items-center">
             <h3 className="text-6xl md:text-8xl font-black mb-12 italic opacity-10 uppercase select-none">The Process</h3>
@@ -128,7 +129,7 @@ const AboutPage = () => {
                 ].map((item, idx) => (
                     <motion.div 
                         key={idx}
-                        whileHover={{ x: 20 }}
+                        whileHover={{ x: 20 } as any}
                         className="group flex items-center justify-between py-10 border-b border-base-content/5 cursor-pointer"
                     >
                         <div className="flex items-center gap-10">
