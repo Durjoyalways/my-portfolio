@@ -7,25 +7,25 @@ const AboutPage = () => {
   const { scrollYProgress } = useScroll();
   const xTransform = useTransform(scrollYProgress, [0, 1], [0, -500]);
 
-  // Type-casting motion components to bypass strict TS errors in Vercel
-  const MDiv = motion.div as any;
-  const MH2 = motion.h2 as any;
-  const MP = motion.p as any;
+  // Force cast motion components to 'any' to stop TypeScript from checking props
+  const MotionDiv = motion.div as any;
+  const MotionH2 = motion.h2 as any;
+  const MotionP = motion.p as any;
 
   return (
     <div className="min-h-screen bg-base-100 overflow-hidden">
       
       {/* 1. Hero Section */}
       <section className="relative h-[70vh] flex items-center justify-center">
-        <MH2 
+        <MotionH2 
           style={{ x: xTransform }} 
           className="absolute whitespace-nowrap text-[15rem] md:text-[25rem] font-black text-base-content/[0.03] pointer-events-none select-none uppercase"
         >
           Creative Developer — Designer — Architect —
-        </MH2>
+        </MotionH2>
         
         <div className="container mx-auto px-6 z-10">
-          <MDiv 
+          <MotionDiv 
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
@@ -35,14 +35,14 @@ const AboutPage = () => {
               Engineering <br /> 
               <span className="text-primary italic">Aesthetics.</span>
             </h1>
-          </MDiv>
+          </MotionDiv>
         </div>
       </section>
 
       {/* 2. Content Section */}
       <section className="container mx-auto px-6 py-24 border-t border-base-content/5">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
-          <MDiv 
+          <MotionDiv 
             whileHover={{ scale: 0.98, rotate: -1 }}
             className="relative aspect-square group cursor-crosshair"
           >
@@ -54,17 +54,17 @@ const AboutPage = () => {
                 className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-1000"
               />
             </div>
-          </MDiv>
+          </MotionDiv>
 
           <div className="space-y-8">
-            <MP 
+            <MotionP 
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               className="text-2xl md:text-3xl font-medium leading-relaxed text-base-content/80"
             >
               I am a Full-stack Developer based in <span className="text-base-content underline decoration-primary decoration-4">Bangladesh</span>, 
               obsessed with building digital products that balance deep technical architecture with elite design.
-            </MP>
+            </MotionP>
             <p className="text-lg text-base-content/60 leading-relaxed">
               My journey started with a passion for logic, which evolved into a mastery of the 
               MERN stack and Next.js. I build secure, scalable systems 
@@ -86,7 +86,7 @@ const AboutPage = () => {
               { title: "Database", icon: <FaDatabase />, desc: "MongoDB, PostgreSQL, Redis" },
               { title: "Scale", icon: <FaRocket />, desc: "SSLCommerz, AWS, Docker" },
             ].map((skill, i) => (
-              <MDiv
+              <MotionDiv
                 key={i}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -94,12 +94,6 @@ const AboutPage = () => {
                 whileHover={{ y: -5 }}
                 className="relative group p-10 rounded-[2.5rem] bg-base-100 border border-base-content/5 overflow-hidden transition-all duration-500"
               >
-                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"
-                     style={{
-                       background: 'radial-gradient(circle at center, var(--p) 0%, transparent 70%)',
-                       opacity: 0.05
-                     }}>
-                </div>
                 <div className="relative z-10">
                   <div className="text-4xl text-primary mb-6 group-hover:scale-110 transition-transform duration-500">
                     {skill.icon}
@@ -109,7 +103,7 @@ const AboutPage = () => {
                     {skill.desc}
                   </p>
                 </div>
-              </MDiv>
+              </MotionDiv>
             ))}
           </div>
         </div>
@@ -126,7 +120,7 @@ const AboutPage = () => {
                     { step: "03", label: "Execution", detail: "Pixel-perfect UI meets high-end code." },
                     { step: "04", label: "Deployment", detail: "Optimizing performance & scaling live." },
                 ].map((item, idx) => (
-                    <MDiv 
+                    <MotionDiv 
                         key={idx}
                         whileHover={{ x: 20 }}
                         className="group flex items-center justify-between py-10 border-b border-base-content/5 cursor-pointer"
@@ -140,7 +134,7 @@ const AboutPage = () => {
                         <p className="hidden md:block text-base-content/40 text-right max-w-xs group-hover:text-base-content transition-colors">
                           {item.detail}
                         </p>
-                    </MDiv>
+                    </MotionDiv>
                 ))}
             </div>
         </div>
