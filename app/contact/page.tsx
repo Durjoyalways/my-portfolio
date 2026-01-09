@@ -3,6 +3,11 @@ import React, { useRef, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaPaperPlane, FaGithub, FaLinkedin, FaWhatsapp, FaCheckCircle } from 'react-icons/fa';
 
+// --- Type Casting for Framer Motion to prevent Build Errors ---
+const MotionDiv = motion.div as any;
+const MotionH1 = motion.h1 as any;
+const MotionForm = motion.form as any;
+
 // --- Magnetic Component ---
 const Magnetic = ({ children }: { children: React.ReactNode }) => {
     const ref = useRef<HTMLDivElement>(null);
@@ -20,7 +25,7 @@ const Magnetic = ({ children }: { children: React.ReactNode }) => {
     const reset = () => setPosition({ x: 0, y: 0 });
 
     return (
-        <motion.div
+        <MotionDiv
             ref={ref}
             onMouseMove={handleMouse}
             onMouseLeave={reset}
@@ -28,7 +33,7 @@ const Magnetic = ({ children }: { children: React.ReactNode }) => {
             transition={{ type: "spring", stiffness: 150, damping: 15, mass: 0.1 }}
         >
             {children}
-        </motion.div>
+        </MotionDiv>
     );
 };
 
@@ -41,7 +46,6 @@ const ContactPage = () => {
     setIsSubmitting(true);
 
     const formData = new FormData(e.currentTarget);
-    // আপনার প্রাপ্ত Access Key টি এখানে বসানো হয়েছে
     formData.append("access_key", "6a19c243-244b-43e1-aead-b0ffe0d8894b"); 
 
     try {
@@ -67,7 +71,6 @@ const ContactPage = () => {
   return (
     <div className="min-h-screen bg-base-100 pt-28 pb-20 overflow-hidden relative">
       
-      {/* Background Glows */}
       <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/10 blur-[120px] rounded-full -z-10" />
       <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-secondary/5 blur-[100px] rounded-full -z-10" />
 
@@ -75,15 +78,15 @@ const ContactPage = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
           
           {/* Left Side: Text and Socials */}
-          <motion.div 
+          <MotionDiv 
             initial={{ opacity: 0, x: -50 }}
             animate={{ opacity: 1, x: 0 }}
             className="space-y-8"
           >
-            <h1 className="text-7xl md:text-9xl font-black tracking-tighter uppercase leading-[0.8]">
+            <MotionH1 className="text-7xl md:text-9xl font-black tracking-tighter uppercase leading-[0.8]">
               Let's <br /> 
               <span className="text-primary italic">Talk.</span>
-            </h1>
+            </MotionH1>
             <p className="text-xl text-base-content/60 max-w-md leading-relaxed">
               আমি ফ্রিল্যান্স প্রজেক্ট এবং ফুল-টাইম কাজের জন্য প্রস্তুত। চলুন একসাথে দারুণ কিছু তৈরি করি।
             </p>
@@ -99,18 +102,18 @@ const ContactPage = () => {
                 <Magnetic><button className="btn btn-circle btn-outline border-base-content/10 hover:btn-primary text-xl transition-colors"><FaWhatsapp /></button></Magnetic>
               </a>
             </div>
-          </motion.div>
+          </MotionDiv>
 
           {/* Right Side: Form Section */}
-          <motion.div 
+          <MotionDiv 
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
           >
-            <div className="bg-base-200/50 backdrop-blur-3xl p-8 md:p-12 rounded-[3rem] border border-white/5 shadow-2xl relative overflow-hidden">
+            <div className="bg-base-200/50 backdrop-blur-3xl p-8 md:p-12 rounded-[3rem] border border-base-content/5 shadow-2xl relative overflow-hidden">
               <AnimatePresence mode="wait">
                 {isSuccess ? (
-                  <motion.div 
+                  <MotionDiv 
                     key="success"
                     initial={{ scale: 0.8, opacity: 0 }} 
                     animate={{ scale: 1, opacity: 1 }}
@@ -119,10 +122,10 @@ const ContactPage = () => {
                   >
                     <FaCheckCircle className="text-primary text-7xl mx-auto animate-bounce" />
                     <h2 className="text-3xl font-bold">Message Sent!</h2>
-                    <p className="opacity-60 font-medium">আপনার মেসেজটি আমি পেয়েছি। খুব শীঘ্রই যোগাযোগ করব।</p>
-                  </motion.div>
+                    <p className="opacity-60 font-medium">আপনার মেসেজটি আমি পেয়েছি। খুব শীঘ্রই যোগাযোগ করব।</p>
+                  </MotionDiv>
                 ) : (
-                  <motion.form 
+                  <MotionForm 
                     key="form"
                     onSubmit={handleSubmit} 
                     className="space-y-6"
@@ -132,21 +135,21 @@ const ContactPage = () => {
                       <label className="label">
                         <span className="label-text font-bold uppercase tracking-widest text-xs opacity-50">Full Name</span>
                       </label>
-                      <input name="name" required type="text" placeholder="আপনার নাম" className="input input-ghost bg-base-100/50 border-white/5 focus:border-primary focus:bg-base-100 rounded-2xl h-16 text-lg transition-all outline-none" />
+                      <input name="name" required type="text" placeholder="আপনার নাম" className="input input-ghost bg-base-100/50 border-base-content/10 focus:border-primary focus:bg-base-100 rounded-2xl h-16 text-lg transition-all outline-none" />
                     </div>
 
                     <div className="form-control">
                       <label className="label">
                         <span className="label-text font-bold uppercase tracking-widest text-xs opacity-50">Email</span>
                       </label>
-                      <input name="email" required type="email" placeholder="email@example.com" className="input input-ghost bg-base-100/50 border-white/5 focus:border-primary focus:bg-base-100 rounded-2xl h-16 text-lg transition-all outline-none" />
+                      <input name="email" required type="email" placeholder="email@example.com" className="input input-ghost bg-base-100/50 border-base-content/10 focus:border-primary focus:bg-base-100 rounded-2xl h-16 text-lg transition-all outline-none" />
                     </div>
 
                     <div className="form-control">
                       <label className="label">
                         <span className="label-text font-bold uppercase tracking-widest text-xs opacity-50">Message</span>
                       </label>
-                      <textarea name="message" required rows={4} placeholder="আপনি কি তৈরি করতে চান?" className="textarea textarea-ghost bg-base-100/50 border-white/5 focus:border-primary focus:bg-base-100 rounded-3xl text-lg transition-all p-6 outline-none" />
+                      <textarea name="message" required rows={4} placeholder="আপনি কি তৈরি করতে চান?" className="textarea textarea-ghost bg-base-100/50 border-base-content/10 focus:border-primary focus:bg-base-100 rounded-3xl text-lg transition-all p-6 outline-none" />
                     </div>
 
                     <div className="pt-6">
@@ -164,11 +167,11 @@ const ContactPage = () => {
                         </button>
                       </Magnetic>
                     </div>
-                  </motion.form>
+                  </MotionForm>
                 )}
               </AnimatePresence>
             </div>
-          </motion.div>
+          </MotionDiv>
 
         </div>
       </div>
