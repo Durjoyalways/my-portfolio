@@ -2,19 +2,23 @@
 import Link from "next/link";
 
 const projects = [
-  {
+{
+    id: "proj-01",
     title: "E-Commerce Ecosystem",
-    description: "A full-scale MERN application with MacBook optimized dashboard and secure Stripe checkouts.",
-    tech: ["Next.js", "MongoDB", "Tailwind", "Stripe"],
-    link: "#",
-    laptopImg: "/images/your-photo1.png", // Ensure these are PNGs
+    description: "A high-performance MERN & Firebase application featuring a custom admin dashboard and secure SSLCommerz payment integration with real-time order tracking.",
+    tech: ["Next.js", "Firebase", "Tailwind CSS", "SSLCommerz"], 
+    link: "/projects/proj-01",
+    github: "https://github.com/Durjoyalways/Dia-Medical-Shop",
+    laptopImg: "/images/your-photo1.png", 
     mobileImg: "/images/your-photo2.png"  
   },
-  {
+{
+    id: "proj-02",
     title: "AI Nexus Platform",
-    description: "Real-time AI interaction engine with a mobile-first responsive design and Node.js backend.",
-    tech: ["React", "Node.js", "OpenAI", "Socket.io"],
-    link: "#",
+    description: "An intelligent real-time interaction engine built with Firebase for instant data synchronization and integrated with SSLCommerz for premium AI features.",
+    tech: ["React", "Firebase", "OpenAI", "SSLCommerz"], // প্রথম প্রজেক্টের সাথে টেক স্ট্যাক সামঞ্জস্যপূর্ণ করা হয়েছে
+    link: "/projects/proj-02", 
+    github: "https://github.com/Durjoyalways/Dia-Medical-Shop/tree/main/app/admin/all-orders", 
     laptopImg: "/images/your-photo3.png", 
     mobileImg: "/images/your-photo4.png"  
   }
@@ -44,12 +48,10 @@ const FeaturedProjects = () => {
                 index % 2 === 1 ? "lg:flex-row-reverse" : ""
               }`}
             >
-              {/* Visual Display (Laptop & Mobile PNGs) */}
+              {/* Visual Display */}
               <div className="relative w-full lg:w-3/5 group">
-                {/* Background Glow */}
                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80%] h-[80%] bg-primary/20 blur-[120px] rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-1000"></div>
 
-                {/* MacBook PNG */}
                 <div className="relative z-10 transition-all duration-700 transform group-hover:scale-[1.05] group-hover:-translate-y-4">
                   <img 
                     src={project.laptopImg} 
@@ -58,7 +60,6 @@ const FeaturedProjects = () => {
                   />
                 </div>
 
-                {/* iPhone PNG - Overlays the Laptop */}
                 <div className="absolute -bottom-16 -right-4 md:-right-8 z-20 w-[28%] transition-all duration-700 delay-75 transform group-hover:scale-110 group-hover:-translate-y-8 group-hover:-rotate-6">
                   <img 
                     src={project.mobileImg} 
@@ -87,13 +88,21 @@ const FeaturedProjects = () => {
                 </div>
 
                 <div className="flex items-center gap-10 pt-6">
+                  {/* Details Button - এখন কাজ করবে */}
                   <Link 
                     href={project.link} 
                     className="btn btn-primary btn-lg rounded-full px-12 text-lg hover:scale-105 transition-transform shadow-xl shadow-primary/30"
                   >
                     Details
                   </Link>
-                  <Link href="#" className="font-bold text-sm tracking-[0.2em] border-b-2 border-primary/40 hover:border-primary transition-all pb-1 uppercase">
+
+                  {/* Code Button - এখন সরাসরি গিটহাবে নিয়ে যাবে */}
+                  <Link 
+                    href={project.github} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="font-bold text-sm tracking-[0.2em] border-b-2 border-primary/40 hover:border-primary transition-all pb-1 uppercase"
+                  >
                     Code
                   </Link>
                 </div>

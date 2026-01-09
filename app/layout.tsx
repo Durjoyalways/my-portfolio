@@ -1,7 +1,11 @@
 import "./globals.css";
 import Navbar from "./components/shared/Navbar";
-// ১. ফুটারটি ইম্পোর্ট করুন
 import Footer from "./components/shared/Footer"; 
+
+export const metadata = {
+  title: "Durjoy | Portfolio",
+  description: "Full Stack Developer Portfolio",
+};
 
 export default function RootLayout({
   children,
@@ -9,16 +13,26 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" data-theme="night">
+    /* ১. data-theme কে "light" করে দেওয়া হয়েছে ২. পিওর হোয়াইট ফিক্স ইনজেক্ট করা হয়েছে */
+    <html lang="en" data-theme="light" style={{ colorScheme: 'light' }}>
+      <head>
+        <style>{`
+          [data-theme="light"] {
+            background-color: #ffffff !important;
+            --b1: 0 0% 100% !important;
+          }
+          body {
+            transition: background-color 0.3s ease;
+          }
+        `}</style>
+      </head>
       <body className="antialiased selection:bg-primary selection:text-primary-content">
         <Navbar />
         
-        {/* মেইন কন্টেন্ট এরিয়া */}
-        <main className="min-h-screen pt-24 px-4 md:px-12">
+        <main className="min-h-screen">
           {children}
         </main>
 
-        {/* ২. ফুটারটি এখানে রেন্ডার করুন */}
         <Footer />
       </body>
     </html>

@@ -2,7 +2,14 @@
 
 /* daisyUI v5 plugin configuration */
 @plugin "daisyui" {
-  themes: light, night, luxury, cupcake, dracula;
+  themes: light, night, luxury, dracula, business;
+}
+
+/* Force Light Mode to be Pure White */
+[data-theme="light"] {
+  --b1: 0 0% 100%; /* base-100: pure white */
+  --b2: 0 0% 98%;  /* base-200: slight gray */
+  --b3: 0 0% 95%;  /* base-300: gray */
 }
 
 /* Global Keyframes */
@@ -17,7 +24,6 @@
   }
 }
 
-/* Custom Animation Class */
 .animate-fade-in-up {
   opacity: 0;
   animation: fadeInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
@@ -25,7 +31,7 @@
 
 @layer base {
   :root {
-    --p: 212 100% 48%; /* Primary color hsl value for custom calculations */
+    --p: 212 100% 48%;
   }
 
   html {
@@ -36,19 +42,22 @@
     @apply bg-base-100 text-base-content antialiased;
   }
 
-  /* Custom Selection Color */
   ::selection {
-    @apply bg-primary text-primary-content;
+    @apply bg-primary/30 text-primary;
   }
 }
 
-/* Scrollbar Customization (Optional - modern look) */
+/* Scrollbar Customization */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 10px;
 }
 ::-webkit-scrollbar-track {
-  @apply bg-base-200;
+  @apply bg-base-100;
 }
 ::-webkit-scrollbar-thumb {
-  @apply bg-primary/30 rounded-full hover:bg-primary/50 transition-colors;
+  @apply bg-primary/20 rounded-full border-4 border-solid border-base-100 hover:bg-primary/40 transition-colors;
+}
+
+.glass-card {
+  @apply bg-base-100/10 backdrop-blur-md border border-white/10 shadow-xl;
 }

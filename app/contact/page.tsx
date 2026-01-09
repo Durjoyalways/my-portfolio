@@ -1,9 +1,9 @@
 "use client";
 import React, { useRef, useState } from 'react';
-import { motion } from 'framer-motion';
-import { FaPaperPlane, FaGithub, FaLinkedin, FaWhatsapp } from 'react-icons/fa';
+import { motion, AnimatePresence } from 'framer-motion';
+import { FaPaperPlane, FaGithub, FaLinkedin, FaWhatsapp, FaCheckCircle } from 'react-icons/fa';
 
-// --- 1. Magnetic Component (Internal to avoid import errors) ---
+// --- Magnetic Component ---
 const Magnetic = ({ children }: { children: React.ReactNode }) => {
     const ref = useRef<HTMLDivElement>(null);
     const [position, setPosition] = useState({ x: 0, y: 0 });
@@ -32,19 +32,49 @@ const Magnetic = ({ children }: { children: React.ReactNode }) => {
     );
 };
 
-// --- 2. Main Contact Page ---
 const ContactPage = () => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+
+    const formData = new FormData(e.currentTarget);
+    // আপনার প্রাপ্ত Access Key টি এখানে বসানো হয়েছে
+    formData.append("access_key", "6a19c243-244b-43e1-aead-b0ffe0d8894b"); 
+
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        body: formData
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        setIsSuccess(true);
+        (e.target as HTMLFormElement).reset();
+        setTimeout(() => setIsSuccess(false), 5000);
+      }
+    } catch (error) {
+      console.error("Submission Error", error);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-base-100 pt-28 pb-20 overflow-hidden relative">
       
-      {/* Background Decorative Glows */}
+      {/* Background Glows */}
       <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/10 blur-[120px] rounded-full -z-10" />
       <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-secondary/5 blur-[100px] rounded-full -z-10" />
 
       <div className="container mx-auto px-6">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
           
-          {/* Left Side: Bold Typography */}
+          {/* Left Side: Text and Socials */}
           <motion.div 
             initial={{ opacity: 0, x: -50 }}
             animate={{ opacity: 1, x: 0 }}
@@ -55,17 +85,19 @@ const ContactPage = () => {
               <span className="text-primary italic">Talk.</span>
             </h1>
             <p className="text-xl text-base-content/60 max-w-md leading-relaxed">
-              I’m available for freelance projects and full-time opportunities. Let’s build something extraordinary together.
+              আমি ফ্রিল্যান্স প্রজেক্ট এবং ফুল-টাইম কাজের জন্য প্রস্তুত। চলুন একসাথে দারুণ কিছু তৈরি করি।
             </p>
 
             <div className="flex gap-6 pt-4">
-              {[<FaGithub />, <FaLinkedin />, <FaWhatsapp />].map((icon, i) => (
-                <Magnetic key={i}>
-                  <button className="btn btn-circle btn-outline border-base-content/10 hover:btn-primary text-xl transition-colors">
-                    {icon}
-                  </button>
-                </Magnetic>
-              ))}
+              <a href="https://github.com/Durjoyalways" target="_blank" rel="noreferrer">
+                <Magnetic><button className="btn btn-circle btn-outline border-base-content/10 hover:btn-primary text-xl transition-colors"><FaGithub /></button></Magnetic>
+              </a>
+              <a href="#" target="_blank" rel="noreferrer">
+                <Magnetic><button className="btn btn-circle btn-outline border-base-content/10 hover:btn-primary text-xl transition-colors"><FaLinkedin /></button></Magnetic>
+              </a>
+              <a href="https://wa.me/8801XXXXXXXXX" target="_blank" rel="noreferrer">
+                <Magnetic><button className="btn btn-circle btn-outline border-base-content/10 hover:btn-primary text-xl transition-colors"><FaWhatsapp /></button></Magnetic>
+              </a>
             </div>
           </motion.div>
 
@@ -75,38 +107,66 @@ const ContactPage = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
           >
-            <div className="bg-base-200/50 backdrop-blur-3xl p-8 md:p-12 rounded-[3rem] border border-white/5 shadow-2xl">
-              <form className="space-y-6">
-                
-                <div className="form-control">
-                  <label className="label">
-                    <span className="label-text font-bold uppercase tracking-widest text-xs opacity-50">Full Name</span>
-                  </label>
-                  <input type="text" placeholder="Your Name" className="input input-ghost bg-base-100/50 border-white/5 focus:border-primary focus:bg-base-100 rounded-2xl h-16 text-lg transition-all outline-none" />
-                </div>
+            <div className="bg-base-200/50 backdrop-blur-3xl p-8 md:p-12 rounded-[3rem] border border-white/5 shadow-2xl relative overflow-hidden">
+              <AnimatePresence mode="wait">
+                {isSuccess ? (
+                  <motion.div 
+                    key="success"
+                    initial={{ scale: 0.8, opacity: 0 }} 
+                    animate={{ scale: 1, opacity: 1 }}
+                    exit={{ scale: 0.8, opacity: 0 }}
+                    className="text-center py-20 space-y-4"
+                  >
+                    <FaCheckCircle className="text-primary text-7xl mx-auto animate-bounce" />
+                    <h2 className="text-3xl font-bold">Message Sent!</h2>
+                    <p className="opacity-60 font-medium">আপনার মেসেজটি আমি পেয়েছি। খুব শীঘ্রই যোগাযোগ করব।</p>
+                  </motion.div>
+                ) : (
+                  <motion.form 
+                    key="form"
+                    onSubmit={handleSubmit} 
+                    className="space-y-6"
+                    exit={{ opacity: 0 }}
+                  >
+                    <div className="form-control">
+                      <label className="label">
+                        <span className="label-text font-bold uppercase tracking-widest text-xs opacity-50">Full Name</span>
+                      </label>
+                      <input name="name" required type="text" placeholder="আপনার নাম" className="input input-ghost bg-base-100/50 border-white/5 focus:border-primary focus:bg-base-100 rounded-2xl h-16 text-lg transition-all outline-none" />
+                    </div>
 
-                <div className="form-control">
-                  <label className="label">
-                    <span className="label-text font-bold uppercase tracking-widest text-xs opacity-50">Email</span>
-                  </label>
-                  <input type="email" placeholder="email@example.com" className="input input-ghost bg-base-100/50 border-white/5 focus:border-primary focus:bg-base-100 rounded-2xl h-16 text-lg transition-all outline-none" />
-                </div>
+                    <div className="form-control">
+                      <label className="label">
+                        <span className="label-text font-bold uppercase tracking-widest text-xs opacity-50">Email</span>
+                      </label>
+                      <input name="email" required type="email" placeholder="email@example.com" className="input input-ghost bg-base-100/50 border-white/5 focus:border-primary focus:bg-base-100 rounded-2xl h-16 text-lg transition-all outline-none" />
+                    </div>
 
-                <div className="form-control">
-                  <label className="label">
-                    <span className="label-text font-bold uppercase tracking-widest text-xs opacity-50">Message</span>
-                  </label>
-                  <textarea rows={4} placeholder="What are we building?" className="textarea textarea-ghost bg-base-100/50 border-white/5 focus:border-primary focus:bg-base-100 rounded-3xl text-lg transition-all p-6 outline-none" />
-                </div>
+                    <div className="form-control">
+                      <label className="label">
+                        <span className="label-text font-bold uppercase tracking-widest text-xs opacity-50">Message</span>
+                      </label>
+                      <textarea name="message" required rows={4} placeholder="আপনি কি তৈরি করতে চান?" className="textarea textarea-ghost bg-base-100/50 border-white/5 focus:border-primary focus:bg-base-100 rounded-3xl text-lg transition-all p-6 outline-none" />
+                    </div>
 
-                <div className="pt-6">
-                  <Magnetic>
-                    <button className="btn btn-primary btn-lg rounded-2xl w-full flex items-center justify-center gap-3 shadow-lg shadow-primary/20 transition-all active:scale-95">
-                      Send Message <FaPaperPlane />
-                    </button>
-                  </Magnetic>
-                </div>
-              </form>
+                    <div className="pt-6">
+                      <Magnetic>
+                        <button 
+                          disabled={isSubmitting}
+                          type="submit" 
+                          className={`btn btn-primary btn-lg rounded-2xl w-full flex items-center justify-center gap-3 shadow-lg transition-all ${isSubmitting ? 'opacity-50' : 'shadow-primary/20 active:scale-95'}`}
+                        >
+                          {isSubmitting ? (
+                            <span className="loading loading-spinner loading-md"></span>
+                          ) : (
+                            <>Send Message <FaPaperPlane /></>
+                          )}
+                        </button>
+                      </Magnetic>
+                    </div>
+                  </motion.form>
+                )}
+              </AnimatePresence>
             </div>
           </motion.div>
 

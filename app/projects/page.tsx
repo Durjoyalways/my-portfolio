@@ -5,36 +5,36 @@ import { motion } from 'framer-motion';
 import { FaArrowRight, FaCode, FaEye } from 'react-icons/fa';
 
 const projectsData = [
-  {
+{
     id: "proj-01",
-    title: "E-Commerce Ecosystem",
-    category: "MERN Stack",
+    title: "Lead Front-end Architect & UX Engineer",
+    category: "Front End", // ক্যাটাগরি পরিবর্তন করা হয়েছে
     image: "/images/your-photo2.png", 
-    description: "A high-performance online store featuring SSLCommerz payments, real-time inventory, and an admin dashboard.",
-    tech: ["Next.js", "Node.js", "SSLCommerz", "MongoDB"]
+    description: "Developed a high-performance, conversion-focused E-commerce storefront. Focused on seamless user journeys, complex state management for shopping carts, and smooth payment gateway integration.",
+    tech: ["Next.js", "Tailwind CSS", "Framer Motion", "Redux Toolkit", "SSLCommerz"] // ফ্রন্ট-এন্ড ফোকাসড টেক
   },
-  {
+{
     id: "proj-02",
-    title: "AI Nexus Platform",
-    category: "Next.js",
+    title: "Backend Systems & Admin Logic Engineer",
+    category: "Back End", // ক্যাটাগরি পরিবর্তন করে Back End করা হয়েছে
     image: "/images/your-photo6.png", 
-    description: "An intelligent real-time communication platform using OpenAI for smart responses and Socket.io.",
-    tech: ["React", "Node.js", "OpenAI", "Socket.io"]
+    description: "Architected the core backend for an AI-driven platform, focusing on a robust Admin Order Maintenance system. Engineered real-time order tracking, automated status updates, and complex database schemas for seamless management.",
+    tech: ["Node.js", "Express", "MongoDB", "Socket.io", "OpenAI API"] // ব্যাক-এন্ড ফোকাসড টেক
   },
-  {
+{
     id: "proj-03",
-    title: "Smart Inventory",
-    category: "Backend",
+    title: "Full-Stack Inventory Architect",
+    category: "MERN Stack", // যেহেতু উভয় পাশে কাজ করেছেন, এটি Full Stack ক্যাটাগরিতে পড়ে
     image: "/images/your-photo1.png", 
-    description: "Scalable backend architecture for managing large scale warehouse inventory systems with deep analytics.",
-    tech: ["Node.js", "Express", "PostgreSQL", "Redis"]
+    description: "Built a comprehensive warehouse management system from scratch. Engineered a high-performance REST API for deep analytics and a real-time dashboard for seamless inventory tracking and data visualization.",
+    tech: ["React", "Node.js", "PostgreSQL", "Redis", "Tailwind CSS"] // ফ্রন্ট এবং ব্যাক উভয় টেকনোলজি রাখা হয়েছে
   },
-
 ];
 
 const ProjectsPage = () => {
   const [filter, setFilter] = useState('All');
 
+  // ফিল্টার লজিক: ক্যাটাগরি অথবা টেকনোলজির সাথে মিললে দেখাবে
   const filteredProjects = filter === 'All' 
     ? projectsData 
     : projectsData.filter(p => p.category === filter || p.tech.includes(filter));
@@ -53,20 +53,29 @@ const ProjectsPage = () => {
             Archive <span className="text-primary not-italic">.</span>
           </motion.h1>
           <p className="text-base-content/50 text-xl mt-4 max-w-2xl mx-auto">
-            Explore 4 of my latest high-end full-stack architectures.
+            Explore my latest high-end architectures.
           </p>
         </div>
 
-        {/* Filter System */}
-        <div className="flex justify-center gap-3 mb-16 overflow-x-auto pb-4 scrollbar-hide">
-          {['All', 'MERN Stack', 'Next.js', 'Backend'].map((cat) => (
-            <button 
+        {/* Filter System with Light Effect */}
+        <div className="flex flex-wrap justify-center gap-4 mb-16 pb-4">
+          {['All', 'Front End', 'Back End', 'MERN Stack'].map((cat) => (
+            <motion.button 
               key={cat}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
               onClick={() => setFilter(cat)}
-              className={`btn btn-md rounded-full px-8 transition-all ${filter === cat ? 'btn-primary shadow-lg shadow-primary/20' : 'btn-ghost border border-base-content/10'}`}
+              className={`relative px-8 py-3 rounded-full font-bold transition-all duration-300 overflow-hidden group
+                ${filter === cat 
+                  ? 'bg-primary text-black shadow-[0_0_20px_rgba(var(--p),0.4)]' 
+                  : 'bg-base-200 text-base-content border border-white/5 hover:border-primary/50'
+                }`}
             >
-              {cat}
-            </button>
+              {/* Hover Light Effect (Nyon Glow) */}
+              <div className="absolute inset-0 bg-primary/20 blur-xl opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
+              
+              <span className="relative z-10">{cat}</span>
+            </motion.button>
           ))}
         </div>
 
@@ -81,9 +90,10 @@ const ProjectsPage = () => {
               key={project.id} 
               className="group relative bg-base-200/30 rounded-[3rem] overflow-hidden border border-base-content/5 hover:border-primary/30 transition-all duration-500"
             >
+              {/* Image Section */}
               <div className="p-5">
                 <div className="relative h-[300px] md:h-[450px] w-full rounded-[2.5rem] overflow-hidden bg-base-300">
-                   <img 
+                  <img 
                     src={project.image} 
                     alt={project.title}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000"
@@ -97,6 +107,7 @@ const ProjectsPage = () => {
                 </div>
               </div>
 
+              {/* Content Section */}
               <div className="p-10 pt-2 space-y-6">
                 <div className="flex justify-between items-start">
                   <div>
@@ -104,8 +115,8 @@ const ProjectsPage = () => {
                     <h3 className="text-4xl font-bold tracking-tight group-hover:text-primary transition-colors">{project.title}</h3>
                   </div>
                   <div className="flex gap-3">
-                    <Link href="#" className="w-12 h-12 bg-base-300 rounded-2xl flex items-center justify-center hover:bg-primary hover:text-black transition-all"><FaCode /></Link>
-                    <Link href="#" className="w-12 h-12 bg-base-300 rounded-2xl flex items-center justify-center hover:bg-primary hover:text-black transition-all"><FaEye /></Link>
+                    <Link href="#" className="w-12 h-12 bg-base-300 rounded-2xl flex items-center justify-center hover:bg-primary hover:text-black transition-all shadow-lg hover:shadow-primary/20"><FaCode /></Link>
+                    <Link href="#" className="w-12 h-12 bg-base-300 rounded-2xl flex items-center justify-center hover:bg-primary hover:text-black transition-all shadow-lg hover:shadow-primary/20"><FaEye /></Link>
                   </div>
                 </div>
 
