@@ -1,10 +1,22 @@
 import "./globals.css";
 import Navbar from "./components/shared/Navbar";
 import Footer from "./components/shared/Footer"; 
+import type { Metadata } from "next";
 
-export const metadata = {
-  title: "Durjoy | Portfolio",
-  description: "Full Stack Developer Portfolio",
+export const metadata: Metadata = {
+  title: "Durjoy | Full Stack Developer Portfolio",
+  description: "Explore the professional portfolio of Durjoy, a Full Stack Developer specializing in modern web technologies, React, and TypeScript.",
+  metadataBase: new URL('https://durjoy-dev.vercel.app'),
+  alternates: {
+    canonical: '/',
+  },
+  openGraph: {
+    title: "Durjoy | Portfolio",
+    description: "Full Stack Developer Portfolio showcasing modern web projects.",
+    url: 'https://durjoy-dev.vercel.app',
+    siteName: 'Durjoy Portfolio',
+    type: 'website',
+  },
 };
 
 export default function RootLayout({
@@ -13,7 +25,6 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    /* ১. data-theme কে "light" করে দেওয়া হয়েছে ২. পিওর হোয়াইট ফিক্স ইনজেক্ট করা হয়েছে */
     <html lang="en" data-theme="light" style={{ colorScheme: 'light' }}>
       <head>
         <style>{`
