@@ -98,9 +98,17 @@ const ContactPage = () => {
               <a href="#" target="_blank" rel="noreferrer">
                 <Magnetic><button className="btn btn-circle btn-outline border-base-content/10 hover:btn-primary text-xl transition-colors"><FaLinkedin /></button></Magnetic>
               </a>
-              <a href="https://wa.me/8801XXXXXXXXX" target="_blank" rel="noreferrer">
-                <Magnetic><button className="btn btn-circle btn-outline border-base-content/10 hover:btn-primary text-xl transition-colors"><FaWhatsapp /></button></Magnetic>
-              </a>
+           <a 
+  href="https://wa.me/8801581797930?text=Hello! I'm interested in working with you." 
+  target="_blank" 
+  rel="noreferrer"
+>
+  <Magnetic>
+    <button className="btn btn-circle btn-outline border-base-content/10 hover:btn-primary text-xl transition-colors">
+      <FaWhatsapp />
+    </button>
+  </Magnetic>
+</a>
             </div>
           </MotionDiv>
 

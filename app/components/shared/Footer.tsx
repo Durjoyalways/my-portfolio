@@ -53,8 +53,8 @@ const Footer = () => {
             </p>
             <div className="flex gap-4 pt-4">
               {[
-                { icon: <FaGithub />, link: "https://github.com/your-username" },
-                { icon: <FaLinkedin />, link: "https://linkedin.com/in/your-username" }
+                { icon: <FaGithub />, link: "https://github.com/Durjoyalways" },
+                { icon: <FaLinkedin />, link: "https://www.linkedin.com/in/durjoy-khan-6a14a9307/" }
               ].map((item, i) => (
                 <Link 
                   key={i} 
